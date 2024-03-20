@@ -32,3 +32,42 @@ We will create this project in four phases:
   - Install Docker (Shell-Script for installing present in my DevOps 2024 repository)
 
 **NOW WE ARE SET WITH ALL THE SERVERS AND READY TO MAOVE TO PHASE TWO**
+
+
+## Phase 2 : Setup a Git Repository
+- Create a new repository
+- Make it private (you can make it public once the project is done but as we are making a corporate level project so make it private)
+- Follow these Steps in your system [git clone -> make files and directories -> git add . -> git status -> git commit -> git push]
+
+
+## Phase 4 (Build Pipelines in Jenkins)
+- **Install Plugin** (Dashboard -> Manage jenkins -> Plugins)
+  - JDK (Eclipse Temurin Installer) -> Used when we want different versions of JDK to support.
+  - Maven (config file provider)
+  - maven (pipeline maven integration)
+  - maven (maven integration)
+  - sonar (sonarqube scanner) -> perform the analysis
+  - sonar (sonarqube server) -> where the result will be shown
+  - docker (docker)
+  - docker (docker pipeline)
+  - docker (docker-build-step)
+  - kubernetes (kubernetes CLI)
+  - kubernetes (kubernetes client API)
+  - kubernetes (kubernetes credentials)
+- **Now we have to configure the tools** (Dashboard -> manage jenkins -> Tools)
+  - JDK installer
+    - Name -> jdk17
+    - install automatically -> adoptium.net -> choose any version
+  - SonarQube Scanner installer
+    - Name -> sonar-scanner
+    - version -> latest
+  - Maven installer
+    - Name -> maven3
+    - Version -> choose
+  - Docker installer
+    - Name -> docker
+    - Version -> Latest
+ - **Construct Pipeline** (Dashboard -> New Item -> select Pipeline)
+   - Discard old builds (set it to the 3) -> No of previous build it will show.
+   - I will recommend you to use pipeline syntax to construct the pipeline (But if you are finding any difficulty in constructing the pipeline you can see the file names pipeline.md in the repository).
+  
