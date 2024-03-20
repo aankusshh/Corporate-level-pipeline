@@ -54,9 +54,9 @@ File System Scan: Scan the whole source code so, that we can find vulneralibilit
         } 
 ```
 **SonarQube Analysis**: Perform static code analysis using SonarQube.  
-    - SonarQube page -> Administration -> security -> users -> tokens -> name the token -> Generate -> copy
-    - Jenkin -> dashboard -> manage jenkins -> credentials -> global -> add credentails -> select secret key -> paste token
-    - Jenkin -> dashboard -> manage jenkins -> system -> sonarqube server -> Name: Sonar -> URL <SonarURL:9000> -> select token -> ID: sonar-cred -> Description: sonar-cred.
+- SonarQube page -> Administration -> security -> users -> tokens -> name the token -> Generate -> copy
+- Jenkin -> dashboard -> manage jenkins -> credentials -> global -> add credentails -> select secret key -> paste token
+- Jenkin -> dashboard -> manage jenkins -> system -> sonarqube server -> Name: Sonar -> URL <SonarURL:9000> -> select token -> ID: sonar-cred -> Description: sonar-cred.
 
 ```bash
         stage('SonarQube Analsyis') { 
@@ -69,7 +69,7 @@ File System Scan: Scan the whole source code so, that we can find vulneralibilit
         } 
 ```
 **Quality Gate**: Wait for the quality gate status from SonarQube.  
-    - Sonarqube -> administration -> configuration -> webhook -> create -> name: jenkins -> soarqube-webhook -> URL:<http//:jenkinsURL:8080>
+- Sonarqube -> administration -> configuration -> webhook -> create -> name: jenkins -> soarqube-webhook -> URL:<http//:jenkinsURL:8080>
 
 ```bash
         stage('Quality Gate') { 
@@ -89,8 +89,8 @@ File System Scan: Scan the whole source code so, that we can find vulneralibilit
         } 
 ```
 **Publish To Nexus**: Deploy artifacts to Nexus repository manager.  
-Sonar-Nexus -> Browse -> copy maven releases and maven snapshot URL -> add the URL in pom.xml file
-Dashboard -> managed files -> add a new config -> select global maven -> global setting
+- Sonar-Nexus -> Browse -> copy maven releases and maven snapshot URL -> add the URL in pom.xml file
+- Dashboard -> managed files -> add a new config -> select global maven -> global setting
 ```bash
         stage('Publish To Nexus') { 
             steps { 
