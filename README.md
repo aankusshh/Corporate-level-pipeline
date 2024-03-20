@@ -1,53 +1,73 @@
-# BoardgameListingWebApp
+# Steps Followed in the Project.
 
-## Description
+We will create this project in four phases:
 
-**Board Game Database Full-Stack Web Application.**
-This web application displays lists of board games and their reviews. While anyone can view the board game lists and reviews, they are required to log in to add/ edit the board games and their reviews. The 'users' have the authority to add board games to the list and add reviews, and the 'managers' have the authority to edit/ delete the reviews on top of the authorities of users.  
+**Phase 1** (Make three EC2 instances)
+- Jenkins (install jenkins) 
+- SonarQube
+- Nexus Repository
+- WebApp (Make 3 Ec2 instance, install kubernetes (1 master and 2 slave) + Docker)
 
-## Technologies
+**Phase 2** (Making and Configuring Git)
 
-- Java
-- Spring Boot
-- Amazon Web Services(AWS) EC2
-- Thymeleaf
-- Thymeleaf Fragments
-- HTML5
-- CSS
-- JavaScript
-- Spring MVC
-- JDBC
-- H2 Database Engine (In-memory)
-- JUnit test framework
-- Spring Security
-- Twitter Bootstrap
-- Maven
+**Phase 3** (Build Pipelines in Jenkins)
 
-## Features
+**Phase 4** (Setting up Monitoring Tools)
 
-- Full-Stack Application
-- UI components created with Thymeleaf and styled with Twitter Bootstrap
-- Authentication and authorization using Spring Security
-  - Authentication by allowing the users to authenticate with a username and password
-  - Authorization by granting different permissions based on the roles (non-members, users, and managers)
-- Different roles (non-members, users, and managers) with varying levels of permissions
-  - Non-members only can see the boardgame lists and reviews
-  - Users can add board games and write reviews
-  - Managers can edit and delete the reviews
-- Deployed the application on AWS EC2
-- JUnit test framework for unit testing
-- Spring MVC best practices to segregate views, controllers, and database packages
-- JDBC for database connectivity and interaction
-- CRUD (Create, Read, Update, Delete) operations for managing data in the database
-- Schema.sql file to customize the schema and input initial data
-- Thymeleaf Fragments to reduce redundancy of repeating HTML elements (head, footer, navigation)
 
-## How to Run
+## Phase 1 : Setup instances and install software
+- Make 6 instances [Jenkins, SonarQube, Nexus Repository, Kubernetes ( 1 Master, 2 Slave )]
+- Secure them with a proper security group and VPC (GOOD PRACTICE)
+- Now set up Kubernetes server by installing Docker, Kubernetes, KubeCTL, Kubelet and Kubeamd (Shell-Script for installing all these are present in my DevOps 2024 repository )
+- We will also install KubeAudit for checking security issues in Kubernetes.
+  **Now we will setup SonarQube and Nexus server**
+  - Install Docker in both servers (Shell-Script for installing present in my DevOps 2024 repository)
+  - Check if docker got install by **docker pull Hello-World**
+  - Now Create a **Container** in both Servers
+  - Provide port 9000:9000 to sonarQube with image **sonarqube: lts-community** (docker run -d --name container_name -p 9000:9000 sonarqube: lts-community)
+  - Provide port 8081:8081 to nexus with image **sonatype/nexus3** (docker run -d --name container_name -p 8081:8081 sonatype/nexus3)
+  - Now for confirmation that the docker container have been made type **docker ps**
+- Now we move to Jenkins server
+  - Java should be present in compute to install jenkins, So first install java
+  - Install Docker (Shell-Script for installing present in my DevOps 2024 repository)
 
-1. Clone the repository
-2. Open the project in your IDE of choice
-3. Run the application
-4. To use initial user data, use the following credentials.
-  - username: bugs    |     password: bunny (user role)
-  - username: daffy   |     password: duck  (manager role)
-5. You can also sign-up as a new user and customize your role to play with the application! 😊
+**NOW WE ARE SET WITH ALL THE SERVERS AND READY TO MAOVE TO PHASE TWO**
+
+
+## Phase 2 : Setup a Git Repository
+- Create a new repository
+- Make it private (you can make it public once the project is done but as we are making a corporate level project so make it private)
+- Follow these Steps in your system [git clone -> make files and directories -> git add . -> git status -> git commit -> git push]
+
+
+## Phase 4 (Build Pipelines in Jenkins)
+- **Install Plugin** (Dashboard -> Manage jenkins -> Plugins)
+  - JDK (Eclipse Temurin Installer) -> Used when we want different versions of JDK to support.
+  - Maven (config file provider)
+  - maven (pipeline maven integration)
+  - maven (maven integration)
+  - sonar (sonarqube scanner) -> perform the analysis
+  - sonar (sonarqube server) -> where the result will be shown
+  - docker (docker)
+  - docker (docker pipeline)
+  - docker (docker-build-step)
+  - kubernetes (kubernetes CLI)
+  - kubernetes (kubernetes client API)
+  - kubernetes (kubernetes credentials)
+- **Now we have to configure the tools** (Dashboard -> manage jenkins -> Tools)
+  - JDK installer
+    - Name -> jdk17
+    - install automatically -> adoptium.net -> choose any version
+  - SonarQube Scanner installer
+    - Name -> sonar-scanner
+    - version -> latest
+  - Maven installer
+    - Name -> maven3
+    - Version -> choose
+  - Docker installer
+    - Name -> docker
+    - Version -> Latest
+ - **Construct Pipeline** (Dashboard -> New Item -> select Pipeline)
+   - Discard old builds (set it to the 3) -> No of previous build it will show.
+   - I will recommend you to use pipeline syntax to construct the pipeline (But if you are finding any difficulty in constructing the pipeline you can see the file names pipeline.md in the repository).
+
