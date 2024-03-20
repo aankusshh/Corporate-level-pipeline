@@ -1,3 +1,3 @@
 # Steps Followed in the Project.
 
-** we 
+* we 
