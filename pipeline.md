@@ -158,6 +158,7 @@ Dashboard -> managed files -> add a new config -> select global maven -> global 
     } 
 ```
 **Post-Build Actions**: After each run, an email is sent with the build status and a link to the Jenkins console output. Additionally, it attaches the Trivy image report.
+RBAC (Role based access control): Role-Based Access Control (RBAC) assigns permissions to roles rather than individual users. Users are then assigned roles based on their job functions or responsibilities. Access control policies are enforced based on these role assignments. RBAC simplifies access management, enhances security, and ensures compliance with regulatory requirements. It provides granular control over system access while reducing the risk of unauthorized access.
 
 ```bash
     post { 
