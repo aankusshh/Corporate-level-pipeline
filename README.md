@@ -70,4 +70,53 @@ We will create this project in four phases:
  - **Construct Pipeline** (Dashboard -> New Item -> select Pipeline)
    - Discard old builds (set it to the 3) -> No of previous build it will show.
    - I will recommend you to use pipeline syntax to construct the pipeline (But if you are finding any difficulty in constructing the pipeline you can see the file names pipeline.md in the repository).
+  
+**Phase 4** (MOnitoring)
+- Make a EC2 instance
+```bash
+sudo apt update
+wget https://github.com/prometheus/prometheus/releases/download/v2.51.0/prometheus-2.51.0.linux-amd64.tar.gz
+# extract it
+tar -xvf prometheus.tar.gz
+# remove the tar file we no longer need it
+rm -rf prometheus.tar.gz
+cd prometheus
+./prometheus &
+# & is for running it in the background
+```
+- NOw that prometheus is running on the background and by default it will be running on the port 9090
+
+Now install GRAFANA
+```bash
+sudo apt update
+sudo apt-get install -y adduser libfontconfig1 musl
+wget https://dl.grafana.com/enterprise/release/grafana-enterprise_10.4.1_amd64.deb
+sudo dpkg -i grafana-enterprise_10.4.1_amd64.deb
+
+# In order to start Grafana we can execute a command that cme up on the screen
+sudo /bin/systemctl/ start grafana-server
+```
+by default it will be running on the port 3000
+
+Now install BLACKBOX EXPORTER (monitor the website)
+```bash
+sudo apt update
+wget https://github.com/prometheus/blackbox_exporter/releases/download/v0.24.0/blackbox_exporter-0.24.0.linux-amd64.tar.gz
+# extract it
+tar -xvf blackbox_exporter.tar.gz
+# remove the tar file we no longer need it
+rm -rf blackbox_exporter.tar.gz
+cd blackbox_exporter
+./blackbox_exporter &
+# & is for running it in the background
+```
+by default it will be running on the port 9115
+
+Now configure the grafana and blackbox
+
+Thank you
+Ankush Singh
+
+
+ 
 
