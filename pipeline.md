@@ -133,6 +133,22 @@ File System Scan: Scan the whole source code so, that we can find vulneralibilit
             } 
         }
 ```
+ **RBAC (Role based access control)**: Role-Based Access Control (RBAC) assigns permissions to roles rather than individual users. Users are then assigned roles based on their job functions or responsibilities. Access control policies are enforced based on these role assignments. RBAC simplifies access management, enhances security, and ensures compliance with regulatory requirements. It provides granular control over system access while reducing the risk of unauthorized access.
+
+ Now go to Master Server of Kubernetes and run following commands:
+ - kubectl create ns webapps
+ - vi svc.yaml
+ - kubectl apply -f svc.yaml
+ - vi role.yaml
+ - kuberctl apply -f role.yaml
+ - vi bind.yaml
+ - kubectl apply -f bind.yaml
+ - vi secret.yaml
+ - kubectl apply -f secret.yaml -n webapps
+ - kubectl describe secret mysecretname -n webapps
+It will give us token that we are going to use as the authentication from jenkins to kubernetes
+(Jenkins -> Dashboard -> credentials -> global -> add credentials -> secret text -> paste token -> ID: k8-cred -> Description: k8-cred)
+
 **Deploy To Kubernetes**: Deploy the application to Kubernetes. 
 ```bash
         stage('Deploy To Kubernetes') { 
@@ -158,6 +174,8 @@ File System Scan: Scan the whole source code so, that we can find vulneralibilit
     } 
 ```
 **Post-Build Actions**: After each run, an email is sent with the build status and a link to the Jenkins console output. Additionally, it attaches the Trivy image report.
+(Jenkins -> Dashboard -> system -> extended E-main notification)
+- Port: 465
 
 ```bash
     post { 
